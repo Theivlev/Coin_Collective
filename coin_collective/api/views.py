@@ -11,6 +11,10 @@ from .serializers import CollectSerializer, PaymentSerializer
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet для объектов Payment, обеспечивает создание, чтение,
+    при условии, что пользователь аутентифицирован.
+    """
     serializer_class = PaymentSerializer
     permission_classes = [IsAdminOrAuthent]
 
@@ -26,6 +30,11 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 
 class CollectViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet для объектов Collect, обеспечивает создание, чтение,
+    обновление и удаление объектов,
+    при условии, что пользователь аутентифицирован.
+    """
     queryset = Collect.objects.all()
     serializer_class = CollectSerializer
     permission_classes = [IsAuthorOrReadOnly]
@@ -35,6 +44,7 @@ class CollectViewSet(viewsets.ModelViewSet):
 
     @method_decorator(cache_page(60))
     def list(self, request):
+        """Получения списка сборов"""
         queryset = self.queryset
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)

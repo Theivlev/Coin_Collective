@@ -11,6 +11,7 @@ DONATION_PURPOSE = (
 
 
 class Payment(models.Model):
+    """Модель, представляющая платеж"""
     donator = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='payments',
@@ -36,6 +37,7 @@ class Payment(models.Model):
 
 
 class Collect(models.Model):
+    """Модель, представляющая сбор"""
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='collects',
